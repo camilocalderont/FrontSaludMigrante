@@ -1,0 +1,38 @@
+<!-- <nav ngbNav #nav="ngbNav" class="nav-tabs">
+    <li [ngbNavItem]="1">
+        <a ngbNavLink routerLink="/Inicio">Inicio</a>
+    </li>
+    <li [ngbNavItem]="2">
+        <a ngbNavLink routerLink="/Solicitud">Solicitud</a>
+    </li>
+</nav> -->
+
+
+<mat-tab-group mat-align-tabs="center" [color]="value">
+    <mat-tab  label="Inicio">
+        <ng-template matTabContent>
+            <app-initiation></app-initiation>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Solicitud">
+        <ng-template matTabContent>
+            <app-request></app-request>
+        </ng-template>
+    </mat-tab>
+   <mat-tab label="Registrar" >  <!-- #tab [disabled]='!tab.isActive'> -->        
+        <ng-template matTabContent>
+            <app-register></app-register>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+
+
+<!-- <mat-tab-group>
+    <mat-tab #tab [disabled]='!tab.isActive' *ngFor="let subject of subjects" [label]="subject.name">
+      {{ subject.name }}
+      <ng-template matTabContent>
+        {{ subject.index }}
+    </ng-template>
+    </mat-tab>
+  </mat-tab-group> -->
+  

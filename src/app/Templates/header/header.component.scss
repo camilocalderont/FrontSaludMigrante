@@ -1,0 +1,33 @@
+
+.navbar a{    
+    background-color:#3ebee3;
+}
+/* header */
+.header{
+    color:#ffffff;
+    background-color:#3ebee3;
+    text-align: center;
+    align-items: center;
+}
+
+.logotipo img{
+    width: 12rem;   
+    margin-left: 1rem; 
+}
+@media(min-width: 650px){
+
+    .header-content{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around  ;
+        align-items: center;
+    }
+    .nav-bar-content{
+        margin-top: 0;
+    }
+}
+
+.center-h {
+    justify-content: center;
+  }
+  

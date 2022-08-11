@@ -1,0 +1,102 @@
+<div class="container center-h center-v">
+    <p><small> Acreditacion Domicilio > Solicitud > Registro </small> </p><br>
+    <mat-card-title>
+        <small> Acreditacion Domicilio / Registro </small>
+    </mat-card-title>
+    <br>
+    <mat-card-subtitle>
+        Detalles del registro
+    </mat-card-subtitle>
+    <br>
+    <mat-card-content>
+        <ol>
+            <h4>
+                <strong>El nucleo familiar abajo descrito, según lo establecido en las normas vigentes, manifiesta <br>
+                    bajo gravedad de juramento:</strong>
+            </h4>
+            <li>
+                Que tiene residencia actual en Bogotá
+            </li>
+            <li>
+                Que conoce la Obligatorion de tener una encuentas SISBEN actualizada y que en caso de cambiar de <br>
+                residencia debe solicitar una nueva a la secretaria Distrital de planeacion en unpunto CADE.
+            </li>
+            <li>
+                Que mientras tenga afiliacion al régimen subsidiado de salud, tiene la obligacion de acreditar la <br>
+                permanecia en el pais actualizando la informacion de domicilio cada (4) meses contados a partir de <br>
+                la ultima actualizacion, ante el municipio o distrito de residencia.
+            </li>
+            <li>
+                Autorizacíon para el tratamiento de datos personales, secretaria distrital de salud informa a la <br>
+                ciudadania en general que de conformidad con la Ley 1581 de 2012 el Decreto 1377 de 2013, a la fecha
+                <br>
+                ha recogido informacion que contiene datos personales obtenidos a trabes de nuestro sitio web y de <br>
+                las diferente actividades realcionadas con la mision de la entidad.
+            </li>
+        </ol>
+
+
+    </mat-card-content>
+    <div class="centrofrom center-h center-v">
+        <div>
+            <h4>Ususarios Registrados</h4>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="identificacion">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">identificacion</th>
+                    <td mat-cell *matCellDef="let element"> {{element.identificacion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Usuario">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Usuario</th>
+                    <td mat-cell *matCellDef="let element">{{element.Usuario}}</td>
+                </ng-container>
+                <ng-container matColumnDef="nacimiento">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Fecha de nacimiento</th>
+                    <td mat-cell *matCellDef="let element">{{element.nacimiento}}</td>
+                </ng-container>
+                <ng-container matColumnDef="declaracion">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Fecha de declaracion</th>
+                    <td mat-cell *matCellDef="let element">{{element.declaracion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Vigencia">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Fecha de Vigencia</th>
+                    <td mat-cell *matCellDef="let element">{{element.Vigencia}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <br><br>
+            <p>En constancia confirmo los datos de ubicacion y contecto:</p>
+
+
+            <mat-card-content>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Direecion de domicilio</mat-label>
+                        <input matInput placeholder="Direecion de domicilio"  required>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefono de contacto</mat-label>
+                        <input matInput placeholder="Telefono de contacto" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Localidad</mat-label>
+                        <input matInput placeholder="Localidad" required>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+
+            
+
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="button" class="btn">Aceptar</button>
+        </mat-card-actions>
+
+        </div>
+
+    </div>
+</div>

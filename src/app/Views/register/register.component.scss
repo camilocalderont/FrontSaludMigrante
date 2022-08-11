@@ -1,0 +1,57 @@
+.container {
+    margin-left: 10%;
+    position: block;
+    ;
+  }
+  
+  
+  mat-card-title,
+  mat-card-subtitle {
+    margin-left: 10%;
+    color: black;
+  }
+  
+  mat-card-content {
+    justify-content: center;
+    margin-right: 5%;
+  }
+  
+  mat-card-actions {
+    margin-left: 40%;
+  }
+  
+ 
+  
+  .mat-form-field {
+    width: 220px;
+  }
+
+
+  
+  .centrofrom {
+    display: flex;
+    /* align-items por defecto tiene el valor `stretch` */
+    margin-left: 10%;
+  }
+  
+
+  
+ 
+  
+  input[type=number]::-webkit-outer-spin-button,
+  
+  input[type=number]::-webkit-inner-spin-button {
+  
+    -webkit-appearance: none;
+  
+    margin: 0;
+  
+  }
+  
+  
+  
+  input[type=number] {
+  
+    -moz-appearance: textfield;
+  
+  }
