@@ -20,13 +20,21 @@ mat-card-content {
   margin-top: 4%;
   color: black;
 }
-
+.btn {
+  margin-bottom: 3%;
+}
 mat-card-actions {
   margin-left: 40%;
 }
+.cardResponse{
+  justify-content: center;
+   width: 80%;   
+   margin-left: 10%;
+   margin-right: 10%;
+
+}
 
 .card {
-
   margin-right: 15%;
   width: 280px;
   height: 230px;

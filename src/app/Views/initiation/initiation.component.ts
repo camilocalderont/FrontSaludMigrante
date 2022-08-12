@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./initiation.component.scss']
 })
 export class InitiationComponent implements OnInit {
-
+  value = 'primary';
+  
   constructor() { }
 
   ngOnInit(): void {

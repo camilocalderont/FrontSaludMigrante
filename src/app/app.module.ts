@@ -1,5 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+
+
 
 /**angular material */
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +17,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,6 +35,9 @@ import { HomeComponent } from './Views/home/home.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './Templates/header/header.component';
 import { RegisterComponent } from './Views/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MY_DATE_FORMATS } from './Models/my-date-formats';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 
 @NgModule({
@@ -50,6 +56,9 @@ import { RegisterComponent } from './Views/register/register.component';
     CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     /**angular material */
     MatCardModule,
     MatFormFieldModule,
@@ -68,8 +77,11 @@ import { RegisterComponent } from './Views/register/register.component';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MomentDateModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA]

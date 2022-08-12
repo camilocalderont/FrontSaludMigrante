@@ -1,64 +1,99 @@
-<div class="container center-h center-v">
-    <p><small> Acreditacion Domicilio > Solicitud</small> </p><br>
-    <mat-card-title>
-        <small> Acreditacion Domicilio / Solicitud </small>
-    </mat-card-title>
-    <br>
-    <mat-card-subtitle>
-        <strong>Por favor ingrese sus datos basicos para cerificar su afiliacion</strong>
-    </mat-card-subtitle>
-    <br>
-    <div class="centrofrom center-h center-v">
-        <mat-card-content>
-            <div class="subti">
-                <p><strong>Informacion de la solicitud</strong><br>
-                    &nbsp; &nbsp; &nbsp; <small> *Campos Obligatorios</small>
-                </p>
-            </div>
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Número de PPT o PEP</mat-label>
-                    <input matInput placeholder="Numero" type="number" required="">
-                </mat-form-field>
-            </div>
+<app-header></app-header>
+<form [formGroup]="requestForm" (ngSubmit)="validate()">
+    <div class="container center-h center-v">
+        <p><small> Acreditacion Domicilio > Solicitud</small> </p><br>
+        <mat-card-title>
+            <small> Acreditacion Domicilio / Solicitud </small>
+        </mat-card-title>
+        <br>
+        <mat-card-subtitle>
+            <strong>Por favor ingrese sus datos basicos para cerificar su afiliacion</strong>
+        </mat-card-subtitle>
+        <br>
+        <div class="centrofrom center-h center-v">
+            <mat-card-content>
 
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Primer apellido</mat-label>
-                    <input matInput placeholder="Primer apellido" required>
-                </mat-form-field>
-            </div>
+                <div class="subti">
+                    <p><strong>Informacion de la solicitud</strong><br>
+                        &nbsp; &nbsp; &nbsp; <small> *Campos Obligatorios</small>
+                    </p>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Número de PPT o PEP</mat-label>
+                        <input matInput placeholder="Numero" type="number" #docNum required formControlName="DocNum"
+                            name="DocNum" maxlength="15" >
+                            <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
+                    </mat-form-field>
+                </div>
 
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Fecha de nacimiento</mat-label>
-                    <input matInput [matDatepicker]="picker" required>
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matSuffix [for]="picker">
-                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-        </mat-card-content>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Primer apellido</mat-label>
+                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname">
+                    </mat-form-field>
+                </div>
 
-        <div class="card">
-            <div class="cardError" *ngIf="viewErrorMesagge">
-                <img class="logoError" src="assets/img/error.png">
-                <p style="color: red; font-size: 30px; "><strong>Lo Sentimos</strong></p>   
-                <br>
-                <p>{{errorMessage}}</p>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de nacimiento</mat-label>
+                        <input matInput [matDatepicker]="picker" required formControlName="BirthDate" name="BirthDate" >
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+
+            <div class="card">
+                <div class="cardError" *ngIf="viewErrorMesagge">
+                    <img class="logoError" src="assets/img/error.png">
+                    <p style="color: red; font-size: 30px; "><strong>Lo Sentimos</strong></p>
+                    <br>
+                    <p>{{errorMessage}}</p>
+                </div>
             </div>
         </div>
-        
 
+        <div class="reCapcha">
+            recapcha
+        </div>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" class="btn">Validar</button>
+        </mat-card-actions>
     </div>
+</form>
 
-    <div class="reCapcha">
-        recapcha
-    </div>
-    <mat-card-actions>
-        <button mat-raised-button color="primary" type="button" class="btn" (click)="validate()">Validar</button>
-    </mat-card-actions>
+<div class="cardResponse" *ngIf="cardResponse">
+    <mat-card-content>
+        <strong>
+        <p>
+            <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
+                domicilio hasta
+                pesados(4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
+        </p>
+        <p>
+            <center>Si le realizaron la Encuesta Sisbén hace mas de un mes, debe revisar sus datos en la siguiente
+                pagina web y
+                en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta Sisbén se
+                encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
+                resolver el
+                problema</center>
+        </p>
 
+        <a href="https://portalciudadano.sisben.gov.co/Home/Login">
+            <center>https://portalciudadano.sisben.gov.co/Home/Login</center>
+        </a>
+        <br>
+        <p>
+            <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:</center>
+        </p>
+        <a href="https://sisbensol.sdp.gov.co/registro-solicitudes">
+            <center>https://sisbensol.sdp.gov.co/registro-solicitudes</center>
+        </a>
+    </strong>
+    </mat-card-content>
 </div>
+<app-footer></app-footer>
