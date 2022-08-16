@@ -1,7 +1,13 @@
 .container {
     margin-left: 10%;
     position: block;
-    ;
+    margin-right: 10%;
+  }
+  .center-h {
+    justify-content: center;
+  }
+  .center-v {
+    align-items: center;
   }
   
   
@@ -20,24 +26,24 @@
     margin-left: 40%;
   }
   
- .btn{
-  margin-top: 2%;
-  margin-bottom: 4%;
-
- }
-  
-  .mat-form-field {
-    width: 220px;
+  .btn{
+    margin: 2%;
   }
+  .text{
+    margin-top: 4%;
+    text-align: center;
+    justify-content: center;
+  }
+ 
 
 //mat-table centrada  y responsive y las columnas iguales al los datos    
 .mat-table {
   overflow: auto;
-  max-height: 500px;
+  max-height: 400px;
 }
 
 table {
-  width: 80%;
+  width: 100%;
 }
 th, td {
   width: 30%;
@@ -54,31 +60,3 @@ th, td {
   font-size: 12px;
 }
 
-  
-  .centrofrom {
-    display: flex;
-    /* align-items por defecto tiene el valor `stretch` */
-    margin-left: 10%;
-  }
-  
-
-  
- 
-  
-  input[type=number]::-webkit-outer-spin-button,
-  
-  input[type=number]::-webkit-inner-spin-button {
-  
-    -webkit-appearance: none;
-  
-    margin: 0;
-  
-  }
-  
-  
-  
-  input[type=number] {
-  
-    -moz-appearance: textfield;
-  
-  }

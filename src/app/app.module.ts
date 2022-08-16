@@ -2,8 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-
-
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 /**angular material */
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +22,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+
 /*componentes*/
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,12 +34,15 @@ import { NavBarComponent } from './Templates/nav-bar/nav-bar.component';
 import { FooterComponent } from './Templates/footer/footer.component';
 import { RequestComponent } from './Views/request/request.component';
 import { HomeComponent } from './Views/home/home.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HeaderComponent } from './Templates/header/header.component';
 import { RegisterComponent } from './Views/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MY_DATE_FORMATS } from './Models/my-date-formats';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { environment } from 'src/environments/environment';
+import { AlertsComponent } from './Templates/alerts/alerts.component';
+import { ConfirmationComponent } from './views/confirmation/confirmation.component';
 
 
 @NgModule({
@@ -49,7 +54,9 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     FooterComponent,
     RequestComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    AlertsComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +66,11 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    RecaptchaV3Module,
+    MomentDateModule,
+
     /**angular material */
     MatCardModule,
     MatFormFieldModule,
@@ -77,10 +89,12 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MomentDateModule
+    MatSnackBarModule,
+    MatSelectModule
   ],
-  providers: [
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  providers: [DatePipe,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,

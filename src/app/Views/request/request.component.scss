@@ -34,33 +34,24 @@ mat-card-actions {
 
 }
 
-.card {
-  margin-right: 15%;
-  width: 280px;
-  height: 230px;
+.colorSnakBar{
+  color: white;
 }
-
-.cardError {
-  text-align: center;
-  color: darkgray;
-  border: 2px solid darkgray;
-}
-
 .mat-form-field {
   width: 220px;
 }
 
-.logoError {
-  margin-top: 2%;
-  max-width: 30%;
-}
+
 
 .reCapcha {
   margin-left: 40%;
   margin-top: 1%;
   margin-bottom: 3%;
 }
-
+re-captcha.is-invalid > div {
+  border: 1px solid #dc3545 !important;
+  border-radius: 0.2rem;
+}
 .centrofrom {
   display: flex;
   /* align-items por defecto tiene el valor `stretch` */
@@ -72,6 +63,13 @@ mat-card-actions {
 
 .center-v {
   align-items: center;
+}
+
+
+.card {
+  margin-right: 15%;
+  width: 280px;
+  height: 230px;
 }
 
 

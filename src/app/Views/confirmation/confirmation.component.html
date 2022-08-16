@@ -1,0 +1,66 @@
+<app-header></app-header>
+<div class="container center-h center-v">
+    <p><small> Acreditacion Domicilio > Solicitud > Confirmacion </small> </p><br>
+    <mat-card-title>
+        <small> Acreditacion Domicilio / Confirmacion </small>
+    </mat-card-title>
+    <br>
+    <br>
+    <div id="print-section">
+        <div class="text">
+            <h3><strong> Su declaración fue creada con éxito</strong></h3>
+            <br>
+            <br>
+            <h4>
+                <strong>La Novedad se aplicará en la base de datos de la Secretaria Distrital de Salud al cierre del<br>
+                    Proximo Mes </strong>
+            </h4>
+        </div>
+
+
+        <div class="centrofrom center-h center-v">
+            <h4 class="text">Ususarios Registrados</h4>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="identificacion">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">identificacion</th>
+                    <td mat-cell *matCellDef="let element"> {{element.docNum}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Usuario">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Usuario</th>
+                    <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.secondName}}
+                        {{element.surname}}
+                        {{element.secondSurname}}</td>
+                </ng-container>
+                <ng-container matColumnDef="nacimiento">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Fecha de nacimiento</th>
+                    <td mat-cell *matCellDef="let element">{{element.birthDate | date: 'shortDate'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="parentesco">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Parentesco</th>
+                    <td mat-cell *matCellDef="let element">{{element.relationship}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <div class="text">
+            <p>En Constancia confirmo los de datos de ubicacion y contacto:</p>
+
+            <h4>por favor no olvide actualizar la declaracion dentro de cuatro(4) meses.</h4>
+        </div>
+
+    </div>
+
+    <br><br><br>
+    <p class="text" style="margin-right: 50%;"><small>puede imprimir este soporte</small></p>
+
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="button" class="btn" (click)="createPDF()">Imprimir</button>
+        <button mat-raised-button color="primary" type="button" class="btn" >Aceptar</button>
+
+    </mat-card-actions>
+</div>
+
+
+<app-footer></app-footer>

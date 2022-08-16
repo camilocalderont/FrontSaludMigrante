@@ -21,23 +21,22 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Número de PPT o PEP</mat-label>
-                        <input matInput placeholder="Numero" type="number" #docNum required formControlName="DocNum"
-                            name="DocNum" maxlength="15" >
-                            <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
+                        <input matInput placeholder="Numero" type="number" #docNum formControlName="DocNum" [required]="!isRequiredInput" name="DocNum" maxlength="15">
+                        <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Primer apellido</mat-label>
-                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname">
+                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname" [required]="!isRequiredInput">
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de nacimiento</mat-label>
-                        <input matInput [matDatepicker]="picker" required formControlName="BirthDate" name="BirthDate" >
+                        <input matInput [matDatepicker]="picker" required formControlName="BirthDate" name="BirthDate" [required]="!isRequiredInput">
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker">
                             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -48,17 +47,19 @@
             </mat-card-content>
 
             <div class="card">
-                <div class="cardError" *ngIf="viewErrorMesagge">
+                <!-- <div class="cardError" *ngIf="viewErrorMesagge">
                     <img class="logoError" src="assets/img/error.png">
                     <p style="color: red; font-size: 30px; "><strong>Lo Sentimos</strong></p>
                     <br>
                     <p>{{errorMessage}}</p>
-                </div>
+                </div> -->
             </div>
         </div>
 
         <div class="reCapcha">
-            recapcha
+            <!-- <div *ngIf="tokenVisible"> reCAPTCHA Token <br />
+                <p style="color:red">{{reCAPTCHAToken}}</p>
+            </div> -->
         </div>
         <mat-card-actions>
             <button mat-raised-button color="primary" type="submit" class="btn">Validar</button>
@@ -66,34 +67,36 @@
     </div>
 </form>
 
-<div class="cardResponse" *ngIf="cardResponse">
+<div class="cardResponse" *ngIf="!cardResponse">
     <mat-card-content>
         <strong>
-        <p>
-            <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
-                domicilio hasta
-                pesados(4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
-        </p>
-        <p>
-            <center>Si le realizaron la Encuesta Sisbén hace mas de un mes, debe revisar sus datos en la siguiente
-                pagina web y
-                en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta Sisbén se
-                encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
-                resolver el
-                problema</center>
-        </p>
+            <p>
+                <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
+                    domicilio hasta
+                    pesados(4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
+            </p>
+            <p>
+                <center>Si le realizaron la Encuesta Sisbén hace mas de un mes, debe revisar sus datos en la siguiente
+                    pagina web y
+                    en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta
+                    Sisbén se
+                    encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
+                    resolver el
+                    problema</center>
+            </p>
 
-        <a href="https://portalciudadano.sisben.gov.co/Home/Login">
-            <center>https://portalciudadano.sisben.gov.co/Home/Login</center>
-        </a>
-        <br>
-        <p>
-            <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:</center>
-        </p>
-        <a href="https://sisbensol.sdp.gov.co/registro-solicitudes">
-            <center>https://sisbensol.sdp.gov.co/registro-solicitudes</center>
-        </a>
-    </strong>
+            <a href="https://portalciudadano.sisben.gov.co/Home/Login">
+                <center>https://portalciudadano.sisben.gov.co/Home/Login</center>
+            </a>
+            <br>
+            <p>
+                <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:
+                </center>
+            </p>
+            <a href="https://sisbensol.sdp.gov.co/registro-solicitudes">
+                <center>https://sisbensol.sdp.gov.co/registro-solicitudes</center>
+            </a>
+        </strong>
     </mat-card-content>
 </div>
 <app-footer></app-footer>

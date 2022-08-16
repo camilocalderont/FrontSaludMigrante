@@ -14,3 +14,4 @@ export interface migrantsAcreditadomI {
     Direction: string;
     Nucleo: boolean;
 }
+
