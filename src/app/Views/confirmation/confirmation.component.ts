@@ -15,7 +15,7 @@ export class ConfirmationComponent implements OnInit {
   dataSource: any;
   datafile: string = "";
 
-  constructor(    
+  constructor(
     private requestComments: RequestService,
     private activeRoute: ActivatedRoute,
   ) { }
@@ -28,57 +28,92 @@ export class ConfirmationComponent implements OnInit {
     });
   }
   createPDF() {
-    // const pdfDefinition: any = {
-    //   content: [
-    //     {
-    //       text: 'Reporte de migrantes',
-    //       table: {
-    //         widths: [ '*', 200, 'auto', 'auto' ],
-    //         body: [
-    //           [
-    //             'Identificacion',
-    //             'Usuario',
-    //             'Nacimiento',
-    //             'Parentesco'
-    //           ],
-    //           [
-    //             '123456789',
-    //             'Juan',
-    //             '12/12/12',
-    //             'Padre'
-    //           ],
-    //           [
-    //             '123456789',
-    //             'Juan',
-    //             '12/12/12',
-    //             'Padre'
-    //           ],
-    //         ]
-    //       }
-    //     }
-    //   ]
-    // };
-    // const pdf = pdfMake.createPdf(pdfDefinition);
-    // pdf.open();
     let printContents, popupWin;
     printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin = window.open();
     popupWin.document.open();
     popupWin.document.write(`
       <html>
         <head>
-          <title>Print tab</title>
+          <title> </title>
           <style>
-          //........Customized style.......
+          .divheader{
+            margin-top: 2rem;
+            margin-bottom: 100px;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            aling-text: center;
+        }        
+        .logotipo{
+            width: 7rem; 
+        }                  
+          
+          .container {
+            margin-left: 10%;
+            position: block;
+            margin-right: 10%;
+          }
+          .center-h {
+            justify-content: center;
+          }
+          .center-v {
+            align-items: center;
+          }         
+          
+          mat-card-title,
+          mat-card-subtitle {
+            margin-left: 10%;
+            color: black;
+          }          
+          mat-card-content {
+            justify-content: center;
+            margin-right: 5%;
+          }          
+          mat-card-actions {
+            margin-left: 40%;
+          }
+          .text{
+            margin-top: 4%;
+            text-align: center;
+            justify-content: center;
+          }
+            
+        .mat-table {
+          overflow: auto;
+          max-height: 400px;
+        }
+        
+        table {
+          width: 100%;
+          border: 1px solid #000;
+        }
+        th, td {
+          width: 30%;
+          text-align: center;
+          vertical-align: center;
+          border: 1px solid #000;
+          border-collapse: collapse;
+        }               
           </style>
         </head>
+        <header class="header center-h center-v">
+              <div>
+                 <img class="logotipo"  align="left" src="https://colnodo.apc.org/apc-aa-files/fee0af9cae9f167d8bf4f37fd26a12dc/alcaldia.png">         
+                 <div class= "divheader">
+                 <h3 align="center" >Acreditacion de domicilio para migrantes venezolanos afiliados al regimen subsidiado en BogotaD.C<br><br>
+                      <small>Articulo 2.1.5.4.1 del Decreto 780 del 2016, adicionado por el Decreto 616 de 2022</small>
+                  </h3>
+                 </div>     
+                  
+              </div> 
+        </header>
     <body onload="window.print();window.close()">${printContents}</body>
       </html>`
     );
     popupWin.document.close();
-              
 
   }
-  
+
 
 }
