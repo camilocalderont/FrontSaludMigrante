@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formUpdateI } from 'src/app/Models/migrantsStatements.interface';
 import { RequestService } from 'src/app/Services/Request/request.service';
+import { AlertsComponent } from 'src/app/Templates/alerts/alerts.component';
 
 
 
@@ -13,6 +15,7 @@ import { RequestService } from 'src/app/Services/Request/request.service';
 })
 export class RegisterComponent implements OnInit {
   displayedColumns: string[] = ['identificacion', 'Usuario', 'nacimiento', 'parentesco'];
+  errorMessage = '';
   dataSource: any;
   datafile: string = "";
   Location: any;
@@ -26,16 +29,18 @@ export class RegisterComponent implements OnInit {
   constructor(
     private requestComments: RequestService,
     private activeRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+   this.ifExistReCapcha();
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
       this.requestComments.getMigrationStatement(this.datafile).subscribe(dataUp => {
-        console.log("asd", dataUp);
+        // console.log("asd", dataUp);
         this.formUpdate.setValue({
           direction: dataUp.migrantsStatements.direction,
           mobile: dataUp.migrantsStatements.mobile,
@@ -44,10 +49,10 @@ export class RegisterComponent implements OnInit {
       })
       this.requestComments.getlocation().subscribe(data => {
         this.Location = data;
-        console.log("asd", this.Location);
+        // console.log("asd", this.Location);
       })
 
-      console.log(data);
+      //console.log(data);
     });
   }
   GetformUpdate(form: any) {
@@ -56,9 +61,34 @@ export class RegisterComponent implements OnInit {
     this.formUdateData.mobile = form.mobile;
     this.formUdateData.locationId = form.locationId;
     this.requestComments.updateMigrationStatement(this.formUdateData).subscribe(data => {
-      console.log(data);
+      //console.log(data);
       this.ngOnInit();
     })
-  this.router.navigate(['/Confirmacion', this.datafile]);
+    this.router.navigate(['/Confirmacion', this.datafile]);
+  }
+
+
+ifExistReCapcha() {
+  if (window.localStorage) {
+    if (window.localStorage.getItem('_grecaptcha') !== undefined
+      && window.localStorage.getItem('_grecaptcha')
+    ) {
+      console.log("_grecaptcha si existe en localStorage!!");      
+    }else{
+      this.errorMessage = 'Para validar el registro, debes aceptar el captcha';
+      this.openSnackBar(this.errorMessage);
+      this.router.navigate(['/Request']);
+    }
+  }
+
+}
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(AlertsComponent, {
+      data: message,
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['mat-toolbar', 'mat-warn']
+    });
   }
 }
