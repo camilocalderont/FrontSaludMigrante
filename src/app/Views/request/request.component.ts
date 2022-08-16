@@ -20,6 +20,7 @@ export class RequestComponent implements OnInit {
   lat: number = 0;
   lng: number = 0;
   dataaa: any
+  inBogota = false;
   isRequiredInput: boolean = true;
   reCAPTCHAToken: string = "";
   tokenVisible: boolean = false;
@@ -44,7 +45,6 @@ export class RequestComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('ubicacionNcliened', JSON.stringify({ name: 'ubicacionNcliened' }));
-
     this.removeRecaptcha();
     this.getUserLocation();
   }
@@ -57,73 +57,71 @@ export class RequestComponent implements OnInit {
       this.openSnackBar(this.errorMessage);
       this.router.navigate(['/Request']);
     } else {
-      if (this.requestForm.value.DocNum === null || this.requestForm.value.DocNum === '') {
-        this.cleanMessage();
-        // console.log("Documento vacio");
-        this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, el número ingresado no es correcto. Para PPT 6 y 8 dígitos y PEP 15 dígitos. Te invitamos a completar la información para poder continuar';
-        this.openSnackBar(this.errorMessage);
-        this.isRequiredInput = false;
-      } else {
-        if (this.requestForm.value.Surname === null || this.requestForm.value.Surname === '') {
+      if (this.inBogota) {
+        if (this.requestForm.value.DocNum === null || this.requestForm.value.DocNum === '') {
           this.cleanMessage();
-          //console.log("Apellido vacio");
-          this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, no ingreso primer apellido. Te invitamos a completar la información para poder continuar';
+          // console.log("Documento vacio");
+          this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, el número ingresado no es correcto. Para PPT 6 y 8 dígitos y PEP 15 dígitos. Te invitamos a completar la información para poder continuar';
           this.openSnackBar(this.errorMessage);
           this.isRequiredInput = false;
         } else {
-          if (this.requestForm.value.BirthDate === null || this.requestForm.value.BirthDate === '') {
+          if (this.requestForm.value.Surname === null || this.requestForm.value.Surname === '') {
             this.cleanMessage();
-            //console.log("Fecha de nacimiento vacia");
-            this.errorMessage = 'No se puede completar la operación porque faltan datos en el campo por ingresar, la fecha de nacimiento no es correcta DD/MM/AAAA. Te invitamos a completar la información para poder continuar';
+            //console.log("Apellido vacio");
+            this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, no ingreso primer apellido. Te invitamos a completar la información para poder continuar';
             this.openSnackBar(this.errorMessage);
             this.isRequiredInput = false;
           } else {
-            this.cleanMessage();
-            this.addRequestForm.docNum = this.requestForm.value.DocNum.toString();
-            this.addRequestForm.surname = this.requestForm.value.Surname;
-            // this.addRequestForm.birthDate = this.requestForm.value.BirthDate.getFullYear() + "-" + this.requestForm.value.BirthDate.getMonth()  + "-" + this.requestForm.value.BirthDate.getDate();
-            this.dataaa = this.datepipe.transform(this.requestForm.value.BirthDate, 'yyyy-MM-dd');
-            this.addRequestForm.birthDate = this.dataaa;
-            //console.log(this.addRequestForm);
-            this.requestComments.requestPost(this.addRequestForm).subscribe(
-              (data) => {
-                if (data.isRegistered == true) {
-                  if (data.migrantsStatementsFile == "") {
-                    this.cleanMessage();
-                    // console.log("no esta afiliado al sisben", data);
-                    this.errorMessage = 'No se encontraron resultados. No se encuentra encuestado al SISBEN en Bogotá';
-                    this.openSnackBar(this.errorMessage);
-                    this.cardResponse = false;
-                    this.removeRecaptcha();
+            if (this.requestForm.value.BirthDate === null || this.requestForm.value.BirthDate === '') {
+              this.cleanMessage();
+              //console.log("Fecha de nacimiento vacia");
+              this.errorMessage = 'No se puede completar la operación porque faltan datos en el campo por ingresar, la fecha de nacimiento no es correcta DD/MM/AAAA. Te invitamos a completar la información para poder continuar';
+              this.openSnackBar(this.errorMessage);
+              this.isRequiredInput = false;
+            } else {
+              this.cleanMessage();
+              this.addRequestForm.docNum = this.requestForm.value.DocNum.toString();
+              this.addRequestForm.surname = this.requestForm.value.Surname;
+              // this.addRequestForm.birthDate = this.requestForm.value.BirthDate.getFullYear() + "-" + this.requestForm.value.BirthDate.getMonth()  + "-" + this.requestForm.value.BirthDate.getDate();
+              this.dataaa = this.datepipe.transform(this.requestForm.value.BirthDate, 'yyyy-MM-dd');
+              this.addRequestForm.birthDate = this.dataaa;
+              //console.log(this.addRequestForm);
+              this.requestComments.requestPost(this.addRequestForm).subscribe(
+                (data) => {
+                  if (data.isRegistered == true) {
+                    if (data.migrantsStatementsFile == "") {
+                      this.cleanMessage();
+                      // console.log("no esta afiliado al sisben", data);
+                      this.errorMessage = 'No se encontraron resultados. No se encuentra encuestado al SISBEN en Bogotá';
+                      this.openSnackBar(this.errorMessage);
+                      this.cardResponse = false;
+                      this.removeRecaptcha();
+                    } else {
+                      this.getUserLocation();
+                      this.cleanMessage();
+                      this.activeRecaptcha();
+                      //console.log("asd", data);
+                      this.MigrantsStatementsFile = data.migrantsStatementsFile;
+                      // this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
+                      this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+                    }
                   } else {
-                    this.getUserLocation();
                     this.cleanMessage();
-                    this.activeRecaptcha();
-                    //console.log("asd", data);
-                    this.MigrantsStatementsFile = data.migrantsStatementsFile;
-                    // this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
-                    this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+                    //console.log("no esta afliado ", data);
+                    this.errorMessage = 'No se encontraron registros. No se encuentra registrado al regimen subsidiado en Bogotá';
+                    this.openSnackBar(this.errorMessage);
+                    this.removeRecaptcha();
                   }
-                } else {
-                  this.cleanMessage();
-                  //console.log("no esta afliado ", data);
-                  this.errorMessage = 'No se encontraron registros. No se encuentra registrado al regimen subsidiado en Bogotá';
-                  this.openSnackBar(this.errorMessage);
-                  this.removeRecaptcha();
                 }
-
-              });
-
+              );
+            }
           }
         }
-
+      } else {
+        this.errorMessage = 'Para validar el registro, debes estar en Bogotá';
+        this.openSnackBar(this.errorMessage);
       }
-
     }
-
-
-
-
   }
 
   activeRecaptcha() {
@@ -157,13 +155,16 @@ export class RequestComponent implements OnInit {
         this.lng = position.coords.longitude;
         //console.log(position.coords.latitude, position.coords.longitude);
         //console.log(this.lat, this.lng);
-        if (this.lat > 4.492916 && this.lat < 4.8398911 && this.lng > -74.099098 && this.lng < -73.898010) {
+        if (this.lat >= 4.492916 && this.lat <= 4.8398911 && this.lng >= -74.099098 && this.lng <= -73.898010) {
           localStorage.removeItem('ubicacionNcliened');
-          // console.log("Bogota");
+           console.log("Bogota");
+          this.inBogota = true;
         }
         else {
           this.errorMessage = 'Para validar el registro, debes estar en Bogotá';
           this.openSnackBar(this.errorMessage);
+          this.inBogota = false;
+          console.log("notBogota");
         }
       }, error => {
         if (error.code == error.PERMISSION_DENIED)
