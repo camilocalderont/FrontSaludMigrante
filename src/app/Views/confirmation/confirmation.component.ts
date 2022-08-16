@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { RequestService } from 'src/app/Services/Request/request.service';
+import { AlertsComponent } from 'src/app/Templates/alerts/alerts.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -13,18 +15,22 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class ConfirmationComponent implements OnInit {
   displayedColumns: string[] = ['identificacion', 'Usuario', 'nacimiento', 'parentesco'];
   dataSource: any;
+  errorMessage: string = '';
   datafile: string = "";
 
   constructor(
     private requestComments: RequestService,
     private activeRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.ifExistReCapcha();
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
     });
   }
   createPDF() {
@@ -115,5 +121,32 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
+  atras() {
+    window.history.back();
+  }
 
+  ifExistReCapcha() {
+    if (window.localStorage) {
+      if (window.localStorage.getItem('_grecaptcha') !== undefined
+        && window.localStorage.getItem('_grecaptcha')
+      ) {
+        console.log("_grecaptcha si existe en localStorage!!");
+      } else {
+        this.errorMessage = 'Para validar el registro, debes aceptar el captcha';
+        this.openSnackBar(this.errorMessage);
+        this.router.navigate(['/Request']);
+      }
+    }
+
+  }
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(AlertsComponent, {
+      data: message,
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['mat-toolbar', 'mat-warn']
+    });
+  }
 }
+

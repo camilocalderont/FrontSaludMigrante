@@ -8,7 +8,7 @@
     <br>
     <div id="print-section">
         <div class="text">
-            <h3><strong> Su declaración fue creada con éxito</strong></h3>
+            <h3 style="color: green;"><strong> Su declaración fue creada con éxito</strong></h3>
             <br>
             <br>
             <h4>
@@ -55,8 +55,9 @@
     <p class="text" style="margin-right: 50%;"><small>puede imprimir este soporte</small></p>
 
     <mat-card-actions>
+        <button mat-raised-button color="warn" type="button" class="btn" (click)="atras()" >Atras</button>
         <button mat-raised-button color="primary" type="button" class="btn" (click)="createPDF()">Imprimir</button>
-        <button mat-raised-button color="primary" type="button" class="btn" >Aceptar</button>
+        <button mat-raised-button  type="button" class="btn" routerLink="/Request">Cerrar</button>
 
     </mat-card-actions>
 </div>

@@ -19,7 +19,7 @@ export class RequestComponent implements OnInit {
   cardResponse: boolean = true;
   lat: number = 0;
   lng: number = 0;
-  dataaa :any
+  dataaa: any
   isRequiredInput: boolean = true;
   reCAPTCHAToken: string = "";
   tokenVisible: boolean = false;
@@ -43,71 +43,73 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserLocation();
+    localStorage.setItem('ubicacionNcliened', JSON.stringify({ name: 'ubicacionNcliened' }));
 
-    this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
-      this.tokenVisible = true;
-      this.reCAPTCHAToken = `Token [${token}] generated`;
-    });
+    this.removeRecaptcha();
+    this.getUserLocation();
   }
 
   validate() {
+    this.getUserLocation();
     this.cardResponse = true;
-    if (this.reCAPTCHAToken == "") {
-      this.errorMessage = 'Para validar el registro, debes aceptar el captcha';
-      this.viewErrorMesagge = true;
+    if (localStorage.getItem('ubicacionNcliened') != null && localStorage.getItem('ubicacionNcliened') == undefined) {
+      this.errorMessage = 'Para validar el registro, debes activar la ubicacion del navegador';
+      this.openSnackBar(this.errorMessage);
+      this.router.navigate(['/Request']);
     } else {
       if (this.requestForm.value.DocNum === null || this.requestForm.value.DocNum === '') {
         this.cleanMessage();
-        console.log("Documento vacio");
-        this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, el número ingresado no es correcto. Para PPT 6 y 8 dígitos y PEP 15 dígitos. Te invitamos a completar la información para poder continua';
+        // console.log("Documento vacio");
+        this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, el número ingresado no es correcto. Para PPT 6 y 8 dígitos y PEP 15 dígitos. Te invitamos a completar la información para poder continuar';
         this.openSnackBar(this.errorMessage);
         this.isRequiredInput = false;
       } else {
         if (this.requestForm.value.Surname === null || this.requestForm.value.Surname === '') {
           this.cleanMessage();
-          console.log("Apellido vacio");
+          //console.log("Apellido vacio");
           this.errorMessage = 'No se puede completar la operación porque faltan campos por ingresar, no ingreso primer apellido. Te invitamos a completar la información para poder continuar';
           this.openSnackBar(this.errorMessage);
           this.isRequiredInput = false;
         } else {
           if (this.requestForm.value.BirthDate === null || this.requestForm.value.BirthDate === '') {
             this.cleanMessage();
-            console.log("Fecha de nacimiento vacia");
+            //console.log("Fecha de nacimiento vacia");
             this.errorMessage = 'No se puede completar la operación porque faltan datos en el campo por ingresar, la fecha de nacimiento no es correcta DD/MM/AAAA. Te invitamos a completar la información para poder continuar';
             this.openSnackBar(this.errorMessage);
             this.isRequiredInput = false;
-
           } else {
             this.cleanMessage();
             this.addRequestForm.docNum = this.requestForm.value.DocNum.toString();
             this.addRequestForm.surname = this.requestForm.value.Surname;
             // this.addRequestForm.birthDate = this.requestForm.value.BirthDate.getFullYear() + "-" + this.requestForm.value.BirthDate.getMonth()  + "-" + this.requestForm.value.BirthDate.getDate();
             this.dataaa = this.datepipe.transform(this.requestForm.value.BirthDate, 'yyyy-MM-dd');
-            this.addRequestForm.birthDate =  this.dataaa;
-            console.log(this.addRequestForm);
+            this.addRequestForm.birthDate = this.dataaa;
+            //console.log(this.addRequestForm);
             this.requestComments.requestPost(this.addRequestForm).subscribe(
               (data) => {
                 if (data.isRegistered == true) {
                   if (data.migrantsStatementsFile == "") {
                     this.cleanMessage();
-                    console.log("no esta afiliado al sisben", data);
+                    // console.log("no esta afiliado al sisben", data);
                     this.errorMessage = 'No se encontraron resultados. No se encuentra encuestado al SISBEN en Bogotá';
                     this.openSnackBar(this.errorMessage);
                     this.cardResponse = false;
+                    this.removeRecaptcha();
                   } else {
                     this.getUserLocation();
                     this.cleanMessage();
-                    console.log("asd", data);
+                    this.activeRecaptcha();
+                    //console.log("asd", data);
                     this.MigrantsStatementsFile = data.migrantsStatementsFile;
                     // this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
                     this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
                   }
                 } else {
                   this.cleanMessage();
-                  console.log("no esta afliado ", data);
+                  //console.log("no esta afliado ", data);
                   this.errorMessage = 'No se encontraron registros. No se encuentra registrado al regimen subsidiado en Bogotá';
                   this.openSnackBar(this.errorMessage);
+                  this.removeRecaptcha();
                 }
 
               });
@@ -119,7 +121,20 @@ export class RequestComponent implements OnInit {
 
     }
 
+
+
+
   }
+
+  activeRecaptcha() {
+    this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
+      this.tokenVisible = true;
+      this.reCAPTCHAToken = `Token [${token}] generated`;
+      //localStorage.setItem('reCAPTCHAToken', JSON.stringify({ token: this.reCAPTCHAToken, name: 'reCAPTCHAToken'}));
+
+    });
+  }
+
   cleanMessage() {
     this.errorMessage = '';
     this.viewErrorMesagge = false;
@@ -140,25 +155,40 @@ export class RequestComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(position => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        console.log(position.coords.latitude, position.coords.longitude);
-        console.log(this.lat, this.lng);
+        //console.log(position.coords.latitude, position.coords.longitude);
+        //console.log(this.lat, this.lng);
         if (this.lat > 4.492916 && this.lat < 4.8398911 && this.lng > -74.099098 && this.lng < -73.898010) {
-          console.log("Bogota");
+          localStorage.removeItem('ubicacionNcliened');
+          // console.log("Bogota");
         }
         else {
           this.errorMessage = 'Para validar el registro, debes estar en Bogotá';
+          this.openSnackBar(this.errorMessage);
         }
       }, error => {
         if (error.code == error.PERMISSION_DENIED)
-        this.errorMessage = 'Por favor, habilita la ubicación para poder continuar';
+          this.errorMessage = 'Por favor, habilita la ubicación para poder continuar';
         this.openSnackBar(this.errorMessage);
-
+        localStorage.setItem('ubicacionNcliened', JSON.stringify({ name: 'ubicacionNcliened' }));
       }
       );
     } else {
-      console.log("User not allow")
+      // console.log("User not allow")
       this.getUserLocation();
 
     }
   }
+
+  removeRecaptcha() {
+    window.localStorage.removeItem('reCAPTCHAToken');
+  }
+
+  verifedUbication() {
+    if (localStorage.getItem('ubicacionNcliened') == null) {
+      this.errorMessage = 'Para validar el registro, debes estar en Bogotá';
+      this.openSnackBar(this.errorMessage);
+      this.router.navigate(['/Request']);
+    }
+  }
+
 }
