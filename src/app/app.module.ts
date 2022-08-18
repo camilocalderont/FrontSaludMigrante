@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import {  RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 /**angular material */
 import { MatCardModule } from '@angular/material/card';
@@ -29,11 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InitiationComponent } from './Views/initiation/initiation.component';
-import { NavBarComponent } from './Templates/nav-bar/nav-bar.component';
 import { FooterComponent } from './Templates/footer/footer.component';
 import { RequestComponent } from './Views/request/request.component';
-import { HomeComponent } from './Views/home/home.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HeaderComponent } from './Templates/header/header.component';
 import { RegisterComponent } from './Views/register/register.component';
@@ -42,18 +39,15 @@ import { MY_DATE_FORMATS } from './Models/my-date-formats';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { environment } from 'src/environments/environment';
 import { AlertsComponent } from './Templates/alerts/alerts.component';
-import { ConfirmationComponent } from './views/confirmation/confirmation.component';
+import { ConfirmationComponent } from './Views/confirmation/confirmation.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    InitiationComponent,
-    NavBarComponent,
     FooterComponent,
     RequestComponent,
-    HomeComponent,
     RegisterComponent,
     AlertsComponent,
     ConfirmationComponent
