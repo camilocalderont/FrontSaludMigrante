@@ -44,7 +44,6 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.setItem('ubicacionNcliened', JSON.stringify({ name: 'ubicacionNcliened' }));
     this.removeRecaptcha();
     this.getUserLocation();
   }
@@ -155,13 +154,15 @@ export class RequestComponent implements OnInit {
         this.lng = position.coords.longitude;
         //console.log(position.coords.latitude, position.coords.longitude);
         //console.log(this.lat, this.lng);
-        if (this.lat >= 4.492916 && this.lat <= 4.8398911 && this.lng >= -74.099098 && this.lng <= -73.898010) {
-          localStorage.removeItem('ubicacionNcliened');
-           console.log("Bogota");
-          this.inBogota = true;
+        if (this.lat >= 4.492916 && this.lat <= 4.8398911) {
+          if (this.lng >= -74.099098 && this.lng <= -73.898010) {
+            localStorage.removeItem('ubicacionNcliened');
+            console.log("Bogota");
+            this.inBogota = true;
+          }
         }
         else {
-          this.errorMessage = 'Para validar el registro, debes estar en Bogotá';
+          this.errorMessage = 'Para continuar con el registro, debes estar en Bogotá';
           this.openSnackBar(this.errorMessage);
           this.inBogota = false;
           console.log("notBogota");
