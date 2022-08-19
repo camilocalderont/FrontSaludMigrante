@@ -155,9 +155,8 @@ export class RequestComponent implements OnInit {
         //console.log(position.coords.latitude, position.coords.longitude);
         //console.log(this.lat, this.lng);
         if (this.lat >= 4.492916 && this.lat <= 4.8398911) {
-          if (this.lng >= -74.099098 && this.lng <= -73.898010) {
+          if (this.lng <= -73.99  && this.lng >= -74.24) {
             localStorage.removeItem('ubicacionNcliened');
-            console.log("Bogota");
             this.inBogota = true;
           }
         }
@@ -165,7 +164,6 @@ export class RequestComponent implements OnInit {
           this.errorMessage = 'Para continuar con el registro, debes estar en Bogotá';
           this.openSnackBar(this.errorMessage);
           this.inBogota = false;
-          console.log("notBogota");
         }
       }, error => {
         if (error.code == error.PERMISSION_DENIED)
