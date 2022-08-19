@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:"https://localhost:7152/",
+  baseUrl:"https://apisaludmigrantes:7152/",
   recaptcha: {
     siteKey: '6LeZH28hAAAAALtUpOptIHiOxeQiIFSE4RgQTJnX',
   },
