@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:"https://saludmigrantesapi.azurewebsites.net/",
+  baseUrl:"https://saludmigrantes-api.azurewebsites.net/",
   recaptcha: {
     siteKey: '6LeZH28hAAAAALtUpOptIHiOxeQiIFSE4RgQTJnX',
   },
