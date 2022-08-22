@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import {  RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 /**angular material */
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -88,7 +90,8 @@ import { ConfirmationComponent } from './Views/confirmation/confirmation.compone
   ],
   providers: [DatePipe,
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey }
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey },
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,
