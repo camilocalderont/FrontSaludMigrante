@@ -13,7 +13,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./confirmation.component.scss']
 })
 export class ConfirmationComponent implements OnInit {
-  displayedColumns: string[] = ['identificacion', 'Usuario', 'nacimiento', 'parentesco'];
+  displayedColumns: string[] = ['identificacion', 'Usuario', 'nacimiento', 'parentesco','declaracion','vigencia'];
   dataSource: any;
   errorMessage: string = '';
   datafile: string = "";
@@ -30,6 +30,12 @@ export class ConfirmationComponent implements OnInit {
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
+      this.requestComments.getMigrationStatement(this.datafile).subscribe(dataUp => {
+        // console.log("asd", dataUp);
+        this.dataSource.statamentsDate = dataUp.migrantsStatements.statamentsDate;
+        this.dataSource.validityDate = dataUp.migrantsStatements.validityDate;
+        console.log(this.dataSource)
+      })
       // console.log(this.dataSource);
     });
   }

@@ -52,23 +52,27 @@ th, td {
 }
 @media(max-width: 500px){
     table, .container  {
-      width: 100%;
+      width: 80%;
       margin: 0%;
     }
     th, td {
-      width: 30%;
-      text-align: center;
-      vertical-align: center;
-      font-size: 11px;
+      width: 20%;
+      text-align: left;
+      vertical-align: left;
+      font-size: 9px;
     }
+    .encabesado {
+      text-align: left;
+      font-size: 9px;
+    }
+    
     mat-card-actions{
       margin-left: 20%;
     }
   }
 .encabesado {
-  padding-right: 5%; 
+  padding-right: 4%; 
   text-align: center;
-
 }
 
 .mat-header-cell {

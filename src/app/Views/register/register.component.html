@@ -59,6 +59,7 @@
                     <th mat-header-cell *matHeaderCellDef class="encabesado">Parentesco</th>
                     <td mat-cell *matCellDef="let element">{{element.relationship}}</td>
                 </ng-container>
+                
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
@@ -78,7 +79,7 @@
                     <div>
                         <mat-form-field appearance="outline">
                             <mat-label>Telefono de contacto</mat-label>
-                            <input matInput placeholder="Telefono de contacto" formControlName="mobile" equired>
+                            <input matInput placeholder="Telefono de contacto" formControlName="mobile" required maxlength="10">
                         </mat-form-field>
                     </div>
                     <div>

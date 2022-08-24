@@ -21,7 +21,7 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Número de PPT o PEP</mat-label>
-                        <input matInput placeholder="Numero" type="number" #docNum formControlName="DocNum" [required]="!isRequiredInput" name="DocNum" maxlength="15">
+                        <input matInput placeholder="Numero" type="number" maxlength="15" #docNum formControlName="DocNum" [required]="!isRequiredInput" name="DocNum" >
                         <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
                     </mat-form-field>
                 </div>

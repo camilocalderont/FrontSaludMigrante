@@ -6,8 +6,6 @@ export interface migrantsStatementsI {
     locationId: number;
     statamentsDate: Date;
     validityDate: Date;
-    latitude: string;
-    longitude: string;
 }
 
 export interface ResponseStatamentsI {
