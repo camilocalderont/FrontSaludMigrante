@@ -113,7 +113,7 @@ export class ConfirmationComponent implements OnInit {
               <div>
                  <img class="logotipo"  align="left" src="https://colnodo.apc.org/apc-aa-files/fee0af9cae9f167d8bf4f37fd26a12dc/alcaldia.png">         
                  <div class= "divheader">
-                 <h3 align="center" >Acreditacion de domicilio para migrantes venezolanos afiliados al regimen subsidiado en BogotaD.C<br><br>
+                 <h3 align="center" >Acreditacion de domicilio para migrantes venezolanos afiliados al régimen subsidiado en BogotaD.C<br><br>
                       <small>Articulo 2.1.5.4.1 del Decreto 780 del 2016, adicionado por el Decreto 616 de 2022</small>
                   </h3>
                  </div>     
