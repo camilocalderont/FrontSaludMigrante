@@ -107,7 +107,7 @@ export class RequestComponent implements OnInit {
                   } else {
                     this.cleanMessage();
                     //console.log("no esta afliado ", data);
-                    this.errorMessage = 'No se encontraron registros. No se encuentra registrado al regimen subsidiado en Bogotá';
+                    this.errorMessage = 'No se encontraron registros. No se encuentra afiliado al régimen subsidiado en Bogotá';
                     this.openSnackBar(this.errorMessage);
                     this.removeRecaptcha();
                   }
