@@ -39,14 +39,13 @@
 //mat-table centrada  y responsive y las columnas iguales al los datos    
 .mat-table {
   overflow: auto;
-  max-height: 400px;
 }
 
 table {
   width: 100%;
 }
-th, td {
-  width: 30%;
+
+td{
   text-align: center;
   vertical-align: center;
 }
@@ -55,11 +54,11 @@ th, td {
       width: 80%;
       margin: 0%;
     }
-    th, td {
-      width: 20%;
+    td {
       text-align: left;
       vertical-align: left;
       font-size: 9px;
+      margin-left: 4%;
     }
     .encabesado {
       text-align: left;
@@ -71,7 +70,6 @@ th, td {
     }
   }
 .encabesado {
-  padding-right: 4%; 
   text-align: center;
 }
 
