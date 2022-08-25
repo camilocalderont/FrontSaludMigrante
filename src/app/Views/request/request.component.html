@@ -9,6 +9,39 @@
         <mat-card-subtitle>
             <strong>Por favor ingrese sus datos basicos para cerificar su afiliación</strong>
         </mat-card-subtitle>
+
+        <div class="cardResponse" *ngIf="!cardResponse">
+            <mat-card-content>
+                <strong>
+                    <p>
+                        <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
+                            domicilio hasta
+                            pasados cuatro (4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
+                    </p>
+                    <p>
+                        <center>Si le realizaron la Encuesta Sisbén hace más de un mes, debe revisar sus datos en la siguiente
+                            página web y
+                            en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta
+                            Sisbén se
+                            encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
+                            resolver el
+                            problema</center>
+                    </p>
+        
+                    <a href="https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html">
+                        <center>https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html</center>
+                    </a>
+                    <br>
+                    <p>
+                        <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:
+                        </center>
+                    </p>
+                    <a href="https://sisbensol.sdp.gov.co/">
+                        <center>https://sisbensol.sdp.gov.co/</center>
+                    </a>
+                </strong>
+            </mat-card-content>
+        </div>
         
         <div class="centrofrom center-h center-v">
             <mat-card-content>
@@ -36,7 +69,8 @@
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Fecha de nacimiento</mat-label>
-                        <input matInput [matDatepicker]="dp3" disabled required formControlName="BirthDate" name="BirthDate" [required]="!isRequiredInput">
+                        <input matInput [matDatepicker]="dp3" required formControlName="BirthDate" name="BirthDate" 
+                                [required]="!isRequiredInput" [disable]="true">
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                         <mat-datepicker #dp3 disabled="false"></mat-datepicker>
@@ -55,36 +89,4 @@
     </div>
 </form>
 
-<div class="cardResponse" *ngIf="!cardResponse">
-    <mat-card-content>
-        <strong>
-            <p>
-                <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
-                    domicilio hasta
-                    pasados cuatro (4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
-            </p>
-            <p>
-                <center>Si le realizaron la Encuesta Sisbén hace más de un mes, debe revisar sus datos en la siguiente
-                    página web y
-                    en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta
-                    Sisbén se
-                    encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
-                    resolver el
-                    problema</center>
-            </p>
-
-            <a href="https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html">
-                <center>https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html</center>
-            </a>
-            <br>
-            <p>
-                <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:
-                </center>
-            </p>
-            <a href="https://sisbensol.sdp.gov.co/">
-                <center>https://sisbensol.sdp.gov.co/</center>
-            </a>
-        </strong>
-    </mat-card-content>
-</div>
 <app-footer></app-footer>
