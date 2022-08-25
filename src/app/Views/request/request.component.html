@@ -14,26 +14,32 @@
             <mat-card-content>
                 <strong>
                     <p>
-                        <center>Si le realizaron la Encuesta Sisbén hace menos de un mes, no es necesaria la acreditación de
+                        <center>Si le realizaron la encuesta Sisbén hace menos de un mes, no es necesaria la
+                            acreditación de
                             domicilio hasta
-                            pasados cuatro (4), meses contados desde la fecha de realización de la visita de la encuesta.</center>
+                            pasados cuatro (4), meses contados desde la fecha de realización de la visita de la
+                            encuesta.</center>
                     </p>
                     <p>
-                        <center>Si le realizaron la Encuesta Sisbén hace más de un mes, debe revisar sus datos en la siguiente
+                        <center>Si le realizaron la Encuesta Sisbén hace más de un mes, debe revisar sus datos en la
+                            siguiente
                             página web y
-                            en caso de que su documento de identificación no se encuentre actualizado o de que la Encuesta
+                            en caso de que su documento de identificación no se encuentre actualizado o de que la
+                            Encuesta
                             Sisbén se
-                            encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE para
+                            encuentre en estado "En verificación", debe ir a un punto de atención del Sisbén en un CADE
+                            para
                             resolver el
                             problema</center>
                     </p>
-        
+
                     <a href="https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html">
                         <center>https://portal.sisben.gov.co/Paginas/consulta-tu-grupo.html</center>
                     </a>
                     <br>
                     <p>
-                        <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página web:
+                        <center> Si no le han realizado la Encuesta Sisbén, la puede solicitar en la siguiente página
+                            web:
                         </center>
                     </p>
                     <a href="https://sisbensol.sdp.gov.co/">
@@ -42,7 +48,7 @@
                 </strong>
             </mat-card-content>
         </div>
-        
+
         <div class="centrofrom center-h center-v">
             <mat-card-content>
 
@@ -52,25 +58,27 @@
                     </p>
                 </div>
                 <div>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="fill">
                         <mat-label>Número de PPT o PEP</mat-label>
-                        <input matInput placeholder="Numero" type="number" maxlength="15" #docNum formControlName="DocNum" [required]="!isRequiredInput" name="DocNum" >
+                        <input matInput placeholder="Numero" type="number" maxlength="15" #docNum
+                            formControlName="DocNum" [required]="!isRequiredInput" name="DocNum">
                         <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
                     </mat-form-field>
                 </div>
 
                 <div>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="fill">
                         <mat-label>Primer apellido</mat-label>
-                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname" [required]="!isRequiredInput">
+                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname"
+                            [required]="!isRequiredInput">
                     </mat-form-field>
                 </div>
 
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Fecha de nacimiento</mat-label>
-                        <input matInput [matDatepicker]="dp3" required formControlName="BirthDate" name="BirthDate" 
-                                [required]="!isRequiredInput" [disable]="true">
+                        <input matInput [matDatepicker]="dp3" required formControlName="BirthDate" name="BirthDate"
+                            [required]="!isRequiredInput" [disabled]="true">
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                         <mat-datepicker #dp3 disabled="false"></mat-datepicker>
@@ -82,11 +90,12 @@
             </div>
         </div>
 
-      
+
         <mat-card-actions>
             <button mat-raised-button color="primary" type="submit" class="btn">Validar</button>
         </mat-card-actions>
     </div>
 </form>
+
 
 <app-footer></app-footer>
