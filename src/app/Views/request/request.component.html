@@ -36,12 +36,12 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Fecha de nacimiento</mat-label>
-                        <input matInput [matDatepicker]="disableTyping" required formControlName="BirthDate" name="BirthDate" [required]="!isRequiredInput">
+                        <input matInput [matDatepicker]="dp3" disabled required formControlName="BirthDate" name="BirthDate" [required]="!isRequiredInput">
                         <mat-hint>DD/MM/YYYY</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="disableTyping">
+                        <mat-datepicker-toggle matSuffix [for]="dp3">
                             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
-                        <mat-datepicker #disableTyping></mat-datepicker>
+                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                     </mat-form-field>
                 </div>
             </mat-card-content>
