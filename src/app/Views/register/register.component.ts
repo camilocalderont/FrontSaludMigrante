@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   formUdateData = {} as formUpdateI;
   formUpdate = new FormGroup({
     direction: new FormControl(''),
-    mobile: new FormControl(0),
+    mobile: new FormControl(''),
     locationId: new FormControl(0),
   });
 
@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   this.ifExistReCapcha();
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
@@ -58,7 +57,7 @@ export class RegisterComponent implements OnInit {
   GetformUpdate(form: any) {
     this.formUdateData.dataSISBEN = this.datafile;
     this.formUdateData.direction = form.direction;
-    this.formUdateData.mobile = form.mobile;
+    this.formUdateData.mobile = form.mobile.toString();
     this.formUdateData.locationId = form.locationId;
     this.requestComments.updateMigrationStatement(this.formUdateData).subscribe(data => {
       //console.log(data);
@@ -68,27 +67,13 @@ export class RegisterComponent implements OnInit {
   }
 
 
-ifExistReCapcha() {
-  if (window.localStorage) {
-    if (window.localStorage.getItem('_grecaptcha') !== undefined
-      && window.localStorage.getItem('_grecaptcha')
-    ) {
-      console.log("_grecaptcha si existe en localStorage!!");      
-    }else{
-      this.errorMessage = 'Para validar el registro, debes aceptar el captcha';
-      this.openSnackBar(this.errorMessage);
-      this.router.navigate(['/Request']);
-    }
-  }
 
-}
   openSnackBar(message: string) {
     this.snackBar.openFromComponent(AlertsComponent, {
       data: message,
-      duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: ['mat-toolbar', 'mat-warn']
+      panelClass: ['mat-toolbar', 'mat-accent']
     });
   }
 }

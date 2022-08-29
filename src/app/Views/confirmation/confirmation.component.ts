@@ -26,7 +26,6 @@ export class ConfirmationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ifExistReCapcha();
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
@@ -131,27 +130,13 @@ export class ConfirmationComponent implements OnInit {
     window.history.back();
   }
 
-  ifExistReCapcha() {
-    if (window.localStorage) {
-      if (window.localStorage.getItem('_grecaptcha') !== undefined
-        && window.localStorage.getItem('_grecaptcha')
-      ) {
-        console.log("_grecaptcha si existe en localStorage!!");
-      } else {
-        this.errorMessage = 'Para validar el registro, debes aceptar el captcha';
-        this.openSnackBar(this.errorMessage);
-        this.router.navigate(['/Request']);
-      }
-    }
-
-  }
+ 
   openSnackBar(message: string) {
     this.snackBar.openFromComponent(AlertsComponent, {
       data: message,
-      duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: ['mat-toolbar', 'mat-warn']
+      panelClass: ['mat-toolbar', 'mat-accent']
     });
   }
 }

@@ -8,12 +8,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertsComponent } from 'src/app/Templates/alerts/alerts.component';
 import { DateAdapter } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { RecaptchaService } from 'src/app/Services/recaptcha/recaptcha.service';
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
+  public robot: boolean;
   errorMessage = '';
   viewErrorMesagge: boolean = false;
   cardResponse: boolean = true;
@@ -37,16 +39,20 @@ export class RequestComponent implements OnInit {
     private dateAdapter: DateAdapter<Date>,
     private requestComments: RequestService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private snackBar: MatSnackBar
+    public captchaSerice: RecaptchaService
   ) {
-    this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
+    this.dateAdapter.setLocale('es-CO'); //dd/MM/yyyy
+
   }
 
   ngOnInit(): void {
     this.removeRecaptcha();
     this.getUserLocation();
+
   }
+
 
   validate() {
     this.getUserLocation();
@@ -91,18 +97,26 @@ export class RequestComponent implements OnInit {
                     if (data.migrantsStatementsFile == "") {
                       this.cleanMessage();
                       // console.log("no esta afiliado al sisben", data);
-                      this.errorMessage = 'No se encontraron resultados. No se encuentra encuestado al SISBEN en Bogotá';
+                      this.errorMessage = 'No se encontraron resultados. No se encuentra encuestado al SISBÉN en Bogotá';
                       this.openSnackBar(this.errorMessage);
                       this.cardResponse = false;
                       this.removeRecaptcha();
                     } else {
-                      this.getUserLocation();
-                      this.cleanMessage();
-                      this.activeRecaptcha();
-                      //console.log("asd", data);
-                      this.MigrantsStatementsFile = data.migrantsStatementsFile;
-                      // this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
-                      this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+                      this.activeRecaptcha()
+                      .then((esRobot)=>{
+                        if (esRobot == true) {
+                          this.errorMessage = 'ERROR ERES UN ROBOT: recarga la pagina nuevamente';
+                          this.openSnackBar(this.errorMessage);
+                        } else {
+                          this.getUserLocation();
+                          this.cleanMessage();
+                          //console.log("asd", data);
+                          this.MigrantsStatementsFile = data.migrantsStatementsFile;
+                          // this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
+                          this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+                        }
+                      }).catch(e=>console.log(e));
+
                     }
                   } else {
                     this.cleanMessage();
@@ -123,14 +137,39 @@ export class RequestComponent implements OnInit {
     }
   }
 
-  activeRecaptcha() {
-    this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
-      this.tokenVisible = true;
-      this.reCAPTCHAToken = `Token [${token}] generated`;
-      //localStorage.setItem('reCAPTCHAToken', JSON.stringify({ token: this.reCAPTCHAToken, name: 'reCAPTCHAToken'}));
+  /*activeRecaptcha() {
+    this.robot = true;
+    this.recaptchaV3Service.execute('')
+      .subscribe((token: string) => {
+        console.log('token', token);
 
+        const auxiliar = this.captchaSerice.getToken(token)
+        console.log('tokennnnn', auxiliar);
+        if (auxiliar.includes('true')) {
+          this.robot = false;
+        }
+      });
+  }*/
+
+  activeRecaptcha = ()=>{
+    return new Promise((resolve, reject)=>{
+
+      try{
+        this.recaptchaV3Service.execute('')
+        .subscribe((token: string) => {
+          const auxiliar = this.captchaSerice.getToken(token)
+          if (auxiliar.includes('true')) {
+            resolve(false);
+          }else{
+            resolve(true);
+          }
+        });
+      }catch(err) {
+        reject('no puede acceder al captcha');
+      }     
     });
   }
+
 
   cleanMessage() {
     this.errorMessage = '';
@@ -140,10 +179,9 @@ export class RequestComponent implements OnInit {
   openSnackBar(message: string) {
     this.snackBar.openFromComponent(AlertsComponent, {
       data: message,
-      duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: ['mat-toolbar', 'mat-warn']
+      panelClass: ['mat-toolbar', 'mat-accent']
     });
   }
 
@@ -155,7 +193,7 @@ export class RequestComponent implements OnInit {
         //console.log(position.coords.latitude, position.coords.longitude);
         //console.log(this.lat, this.lng);
         if (this.lat >= 4.492916 && this.lat <= 4.8398911) {
-          if (this.lng <= -73.99  && this.lng >= -74.24) {
+          if (this.lng <= -73.99 && this.lng >= -74.24) {
             localStorage.removeItem('ubicacionNcliened');
             this.inBogota = true;
           }

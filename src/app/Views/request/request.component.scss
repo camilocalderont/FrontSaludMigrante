@@ -20,23 +20,29 @@ mat-card-content {
   margin-top: 4%;
   color: black;
 }
+
 .btn {
   margin-bottom: 3%;
 }
+
 mat-card-actions {
   margin-left: 40%;
 }
-.cardResponse{
+
+.cardResponse {
   justify-content: center;
-   width: 80%;   
-   margin-left: 10%;
-   margin-right: 10%;
+  width: 80%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  margin-bottom: 8%;
 
 }
 
-.colorSnakBar{
+.colorSnakBar {
   color: white;
 }
+
 .mat-form-field {
   width: 220px;
 }
@@ -48,10 +54,12 @@ mat-card-actions {
   margin-top: 1%;
   margin-bottom: 3%;
 }
-re-captcha.is-invalid > div {
+
+re-captcha.is-invalid>div {
   border: 1px solid #dc3545 !important;
   border-radius: 0.2rem;
 }
+
 .centrofrom {
   display: flex;
   margin-top: 4%;

@@ -5,12 +5,7 @@
         <mat-card-title>
             <small> Acreditación Domicilio / Solicitud </small>
         </mat-card-title>
-        <br>
-        <mat-card-subtitle>
-            <strong>Por favor ingrese sus datos basicos para certificar su afiliación</strong>
-        </mat-card-subtitle>
-
-        <div class="cardResponse" *ngIf="!cardResponse">
+        <div class="cardResponse  " *ngIf="!cardResponse">
             <mat-card-content>
                 <strong>
                     <p>
@@ -48,6 +43,12 @@
                 </strong>
             </mat-card-content>
         </div>
+        <br>
+        <mat-card-subtitle>
+            <strong>Por favor ingrese sus datos basicos para certificar su afiliación</strong>
+        </mat-card-subtitle>
+
+       
 
         <div class="centrofrom center-h center-v">
             <mat-card-content>
@@ -69,7 +70,7 @@
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Primer apellido</mat-label>
-                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname"
+                        <input matInput placeholder="Primer apellido" required formControlName="Surname" name="Surname" onkeydown="return /[a-z, Ññ]/i.test(event.key)"
                             [required]="!isRequiredInput">
                     </mat-form-field>
                 </div>
