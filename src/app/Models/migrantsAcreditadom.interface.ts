@@ -1,4 +1,3 @@
-
 export interface migrantsAcreditadomI {
     MigrantId: number;
     TypeDoc: string;

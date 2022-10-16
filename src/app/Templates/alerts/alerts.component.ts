@@ -18,4 +18,5 @@ export class AlertsComponent implements OnInit {
   public dismissSnackbar(): void {
     this.snackBar.dismiss();
  }
+
 }

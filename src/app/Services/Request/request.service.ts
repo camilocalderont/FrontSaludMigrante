@@ -15,6 +15,7 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
+
   requestPost(form: validationRequestI): Observable<ResponseI> {
     let dir = this.url + "MigrantValidationsControllers/Validate";
     return this.http.post<ResponseI>(dir, form);
@@ -34,7 +35,7 @@ export class RequestService {
     let dir = this.url + "Location";
     return this.http.get<locationI>(dir);
   }
-  
+
   updateMigrationStatement( form: formUpdateI): Observable<ResponseStatamentsI> {
     let dir = this.url + "MigrantsStataments/UpdateDataStataments/"+ form.dataSISBEN;
     return this.http.put<ResponseStatamentsI>(dir, form);

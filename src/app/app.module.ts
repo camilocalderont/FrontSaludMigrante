@@ -2,9 +2,29 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import {  RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
-
+import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+
+
+/*componentes*/
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './Templates/footer/footer.component';
+import { RequestComponent } from './Views/request/request.component';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HeaderComponent } from './Templates/header/header.component';
+import { RegisterComponent } from './Views/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MY_DATE_FORMATS } from './Models/my-date-formats';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { environment } from 'src/environments/environment';
+import { AlertsComponent } from './Templates/alerts/alerts.component';
+import { ConfirmationComponent } from './Views/confirmation/confirmation.component';
+
+
+
 
 /**angular material */
 import { MatCardModule } from '@angular/material/card';
@@ -26,22 +46,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { AlertPoliticaComponent } from './Templates/alert-politica/alert-politica.component';
+import { ProteccionDatosService } from './Services/Proteccion-Datos/proteccion-datos.service';
+import { RecaptchaService } from './Services/recaptcha/recaptcha.service';
+import { RequestService } from './Services/Request/request.service';
 
-/*componentes*/
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FooterComponent } from './Templates/footer/footer.component';
-import { RequestComponent } from './Views/request/request.component';
-import { CommonModule, DatePipe } from '@angular/common';
-import { HeaderComponent } from './Templates/header/header.component';
-import { RegisterComponent } from './Views/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MY_DATE_FORMATS } from './Models/my-date-formats';
-import { MomentDateModule } from '@angular/material-moment-adapter';
-import { environment } from 'src/environments/environment';
-import { AlertsComponent } from './Templates/alerts/alerts.component';
-import { ConfirmationComponent } from './Views/confirmation/confirmation.component';
+
 
 
 @NgModule({
@@ -52,7 +63,8 @@ import { ConfirmationComponent } from './Views/confirmation/confirmation.compone
     RequestComponent,
     RegisterComponent,
     AlertsComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    AlertPoliticaComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +78,11 @@ import { ConfirmationComponent } from './Views/confirmation/confirmation.compone
     RecaptchaFormsModule,
     RecaptchaV3Module,
     MomentDateModule,
+
+
+
+
+
 
     /**angular material */
     MatCardModule,
@@ -86,9 +103,11 @@ import { ConfirmationComponent } from './Views/confirmation/confirmation.compone
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+
   ],
-  providers: [DatePipe,
+  providers: [DatePipe,ProteccionDatosService,RecaptchaService,RequestService,
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey },
     { provide: LocationStrategy, useClass: HashLocationStrategy},

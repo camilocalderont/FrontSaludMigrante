@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
   dataSource: any;
   datafile: string = "";
   Location: any;
+  title:string;
+  fecha:string;
   formUdateData = {} as formUpdateI;
   formUpdate = new FormGroup({
     direction: new FormControl(''),
@@ -31,9 +33,12 @@ export class RegisterComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.title = this.route.snapshot.data['title'];
+    this.fecha = this.route.snapshot.data['fecha'];
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;

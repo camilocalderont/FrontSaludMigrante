@@ -7,6 +7,7 @@ import { RequestService } from 'src/app/Services/Request/request.service';
 import { AlertsComponent } from 'src/app/Templates/alerts/alerts.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -17,15 +18,19 @@ export class ConfirmationComponent implements OnInit {
   dataSource: any;
   errorMessage: string = '';
   datafile: string = "";
-
+  title:string;
+  fecha:string;
   constructor(
     private requestComments: RequestService,
     private activeRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.title = this.route.snapshot.data['title'];
+    this.fecha = this.route.snapshot.data['fecha'];
     this.datafile = this.activeRoute.snapshot.paramMap.get('data') || '';
     this.requestComments.getNucleoBySisben(this.datafile).subscribe(data => {
       this.dataSource = data;
@@ -55,11 +60,11 @@ export class ConfirmationComponent implements OnInit {
             justify-content: center;
             align-content: center;
             aling-text: center;
-        }        
+        }
         .logotipo{
-            width: 7rem; 
-        }                  
-          
+            width: 7rem;
+        }
+
           .container {
             margin-left: 10%;
             position: block;
@@ -70,17 +75,17 @@ export class ConfirmationComponent implements OnInit {
           }
           .center-v {
             align-items: center;
-          }         
-          
+          }
+
           mat-card-title,
           mat-card-subtitle {
             margin-left: 10%;
             color: black;
-          }          
+          }
           mat-card-content {
             justify-content: center;
             margin-right: 5%;
-          }          
+          }
           mat-card-actions {
             margin-left: 40%;
           }
@@ -89,12 +94,12 @@ export class ConfirmationComponent implements OnInit {
             text-align: center;
             justify-content: center;
           }
-            
+
         .mat-table {
           overflow: auto;
           max-height: 400px;
         }
-        
+
         table {
           width: 100%;
           border: 1px solid #000;
@@ -105,19 +110,19 @@ export class ConfirmationComponent implements OnInit {
           vertical-align: center;
           border: 1px solid #000;
           border-collapse: collapse;
-        }               
+        }
           </style>
         </head>
         <header class="header center-h center-v">
               <div>
-                 <img class="logotipo"  align="left" src="https://colnodo.apc.org/apc-aa-files/fee0af9cae9f167d8bf4f37fd26a12dc/alcaldia.png">         
+                 <img class="logotipo"  align="left" src="https://colnodo.apc.org/apc-aa-files/fee0af9cae9f167d8bf4f37fd26a12dc/alcaldia.png">
                  <div class= "divheader">
                  <h3 align="center" >Acreditación de domicilio para migrantes venezolanos afiliados al régimen subsidiado en Bogotá D.C<br><br>
                       <small>Articulo 2.1.5.4.1 del Decreto 780 del 2016, adicionado por el Decreto 616 de 2022</small>
                   </h3>
-                 </div>     
-                  
-              </div> 
+                 </div>
+
+              </div>
         </header>
     <body onload="window.print();window.close()">${printContents}</body>
       </html>`
@@ -130,7 +135,7 @@ export class ConfirmationComponent implements OnInit {
     window.history.back();
   }
 
- 
+
   openSnackBar(message: string) {
     this.snackBar.openFromComponent(AlertsComponent, {
       data: message,

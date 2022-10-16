@@ -1,9 +1,8 @@
-import { DatePipe } from "@angular/common";
-
 export interface validationRequestI {
     docNum: string;
     surname: string;
     birthDate: string;
+    acceptPolicy:boolean;
 }
 
 export interface ResponseI {

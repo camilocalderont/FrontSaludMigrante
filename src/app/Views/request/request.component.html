@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <form [formGroup]="requestForm" (ngSubmit)="validate()">
     <div class="container center-h center-v">
         <p><small> Acreditación Domicilio > Solicitud</small> </p><br>
@@ -48,20 +49,20 @@
             <strong>Por favor ingrese sus datos basicos para certificar su afiliación</strong>
         </mat-card-subtitle>
 
-       
+
 
         <div class="centrofrom center-h center-v">
             <mat-card-content>
 
                 <div class="subti">
-                    <p><strong>Informacón de la solicitud</strong><br>
+                    <p><strong>Información de la solicitud</strong><br>
                         &nbsp; &nbsp; &nbsp; <small> *Campos Obligatorios</small>
                     </p>
                 </div>
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Número de PPT o PEP</mat-label>
-                        <input matInput placeholder="Numero" type="number" maxlength="15" #docNum
+                        <input matInput placeholder="Numero" type="number" maxlength="20" #docNum
                             formControlName="DocNum" [required]="!isRequiredInput" name="DocNum">
                         <mat-hint align="end">{{docNum.value.length}} / 15</mat-hint>
                     </mat-form-field>
@@ -85,6 +86,14 @@
                         <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                     </mat-form-field>
                 </div>
+
+
+<!--
+       <section class="sectionCheck">
+                    <mat-label></mat-label>
+                    <mat-checkbox [(ngModel)]="checked" color="primary" required formControlName="acceptPolicy" name="acceptPolicy" >Politica de Tratamiento de datos</mat-checkbox>
+        </section> -->
+
             </mat-card-content>
 
             <div class="card">
@@ -92,11 +101,20 @@
         </div>
 
 
+
+
         <mat-card-actions>
             <button mat-raised-button color="primary" type="submit" class="btn">Validar</button>
         </mat-card-actions>
+
+
     </div>
+
+
 </form>
 
+<app-footer [title]="title" [fecha]="fecha"></app-footer>
 
-<app-footer></app-footer>
+
+
+

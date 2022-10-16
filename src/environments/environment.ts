@@ -4,10 +4,13 @@
 
 export const environment = {
   production: false,
-  baseUrl:"https://saludmigrantes-api.azurewebsites.net/",
+  title: '',
+  baseUrl:"https://wa-aeu-sds-dev-saludmigrantes-back.azurewebsites.net/",
+         
   recaptcha: {
     siteKey: '6LeZH28hAAAAALtUpOptIHiOxeQiIFSE4RgQTJnX',
   },
+  fecha: "2022-09-07"
 };
 
 /*
