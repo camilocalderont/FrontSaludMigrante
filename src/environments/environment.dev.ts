@@ -2,9 +2,9 @@ export const environment = {
   production: true,
   title: 'Dev',
 
-  baseUrl:"https://wa-aeu-sds-dev-saludmigrantes-back.azurewebsites.net/",
+  baseUrl:"https://saludmigrantes-api.azurewebsites.net/",
 
-  baseUrlSeguridad:"https://apm-aeu-sds-dev-shared.azure-api.net/tramites-shared/api/",
+  baseUrlSeguridad:"https://apm-aeu-sds-prd-shared.azure-api.net/tramites-shared/api/v1/",
 
 
   recaptcha: {
