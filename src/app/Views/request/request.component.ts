@@ -174,47 +174,33 @@ export class RequestComponent implements OnInit
                                   this.cleanMessage();
                                   //console.log("asd", data);
                                   this.MigrantsStatementsFile = data.migrantsStatementsFile;
-                                  this.openSeguridad(this.errorMessage);
+                                  //this.openSeguridad(this.errorMessage);
 
 
                                   //1. Armar el GUID con una funcion
                                   //1. obtengo el tamaño del documento
-                                  let guidDOC = this.docToGuid(this.addAcreditadomI.DocNum);
-                                  //2. Consultar el servicio GETPolítica con el GUID
-                                  this.serviceProtectData.GetSeguridad(guidDOC).subscribe((data)=>
-                                  {
-                                      if (data.count){
-                                          this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
-                                          //2.1 Si responde que ya existe, entonces salta al router.navigate /Registro
-                                      }else{
-                                        this.openSeguridad(this.errorMessage);
-                                        //2.2 Si responde que NO existe, entonces muestra el modal, dialog y poner el texto el botón autorizo y no autorizo
-                                      }
+                                  this.docToGuid(this.requestForm.value.DocNum)
+                                  .then((guidDOC:string)=>{
+                                    this.addProtectData.id_usuario   = guidDOC;
+                                    this.addProtectData.nombre       = data.firstName;
+                                    this.addProtectData.apellido     = data.surname;
+                                    this.addProtectData.fecha        = this.dateDay;
 
-                                        //2.2.1 Si autoriza entonces toma el nombre, apellido, la fecha y el guid y ejecutan el servicio POST, Cierra el modal
-                                        this.addProtectData.id_usuario   = 'febee5a4-db42-4606-a5eb-574d70c2f564';
-                                        this.addProtectData.nombre       = this.addProtectData.nombre;
-                                        this.addProtectData.apellido     = this.addProtectData.apellido;
-                                        this.addProtectData.fecha        = this.dateDay;
+                                    //2. Consultar el servicio GETPolítica con el GUID
+                                    this.serviceProtectData.GetSeguridad(guidDOC).subscribe((data)=>
+                                    {
+                                        if (data.data !== null){
+                                            this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
+                                            //2.1 Si responde que ya existe, entonces salta al router.navigate /Registro
+                                        }else{
+                                          this.openSeguridad(this.errorMessage);
+                                          //2.2 Si responde que NO existe, entonces muestra el modal, dialog y poner el texto el botón autorizo y no autorizo
+                                        }
 
-                                        this.serviceProtectData.PostSeguridad(this.addProtectData).subscribe((data)=>
-                                          {
-                                            console.log(this.addProtectData.fecha);
-                                            //1. Armar el GUID con una funcion
-
-                                          });
-
-
-
-                                        //2.2.2 Si no autoriza le hace
-                                        this.router.navigate(['/Request']);
-                                        //3. salta al router.navigate /Registro
-                                        this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
-
+                                          //2.2.1 Si autoriza entonces toma el nombre, apellido, la fecha y el guid y ejecutan el servicio POST, Cierra el modal
+                                          //addAcreditadomI
                                     });
-
-
-
+                                  });
                                   //this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
                                 }
                               }).catch(e=>console.log(e));
@@ -318,28 +304,43 @@ export class RequestComponent implements OnInit
     eventSeguridad.afterDismissed().subscribe(() =>{
       eventSeguridad.instance.emmitsubject.subscribe(validarIngreso =>{
         if(validarIngreso){
+
+          this.serviceProtectData.PostSeguridad(this.addProtectData).subscribe((data)=>
+          {
+              console.log(this.addProtectData.fecha);
+              //1. Armar el GUID con una funcion
+
+          });
           this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+        }else{
+          this.router.navigate(['/Request']);
         }
       });
     });
   }
 
   docToGuid(doc:string){
-    let guidDoc = '';
-    let docSize = doc.length;
-    if(docSize <= 12){
-      guidDoc = `00000000-0000-0000-0000-${doc.toString().padStart(12,'0')}`;
-    }
-    else if(docSize <= 16){
-      let lastGuid = doc.substring(3);
-      let penGuid = doc.substring(0,3);
-      guidDoc = `00000000-0000-0000-${penGuid.toString().padStart(4,'0')}-${lastGuid}`;
-    }
-    else if(docSize <= 20){
-      let lastGuid = `${doc.substring(0,4)}-${doc.substring(4,8)}-${doc.substring(8)}`;
-      guidDoc = `00000000-0000-${lastGuid}`;
-    }
-    return guidDoc;
+    return new Promise((resolve, reject) => {
+      try {
+        let guidDoc = '';
+        let docSize = doc.length;
+        if(docSize <= 12){
+          guidDoc = `00000000-0000-0000-0000-${doc.toString().padStart(12,'0')}`;
+        }
+        else if(docSize <= 16){
+          let lastGuid = doc.substring(3);
+          let penGuid = doc.substring(0,3);
+          guidDoc = `00000000-0000-0000-${penGuid.toString().padStart(4,'0')}-${lastGuid}`;
+        }
+        else if(docSize <= 20){
+          let lastGuid = `${doc.substring(0,4)}-${doc.substring(4,8)}-${doc.substring(8)}`;
+          guidDoc = `00000000-0000-${lastGuid}`;
+        }
+        resolve(guidDoc);
+      } catch (error) {
+        reject(doc);
+      }
+    });
   }
 
 

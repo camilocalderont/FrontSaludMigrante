@@ -9,6 +9,8 @@ export interface ResponseI {
     isRegistered: boolean;
     errorMessage: string;
     migrantsStatementsFile: string;
+    firstName:string;
+    surname:string;
 }
 
 
