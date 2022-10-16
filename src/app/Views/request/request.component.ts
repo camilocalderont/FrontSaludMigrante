@@ -322,6 +322,7 @@ export class RequestComponent implements OnInit
   docToGuid(doc:string){
     return new Promise((resolve, reject) => {
       try {
+        doc = doc.toString();
         let guidDoc = '';
         let docSize = doc.length;
         if(docSize <= 12){
