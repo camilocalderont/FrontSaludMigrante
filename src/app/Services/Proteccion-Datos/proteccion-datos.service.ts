@@ -33,13 +33,13 @@ export class ProteccionDatosService {
   PostSeguridad(postdata: ProtectRequestDate): Observable<ResponseMessage>{
     let dir = this.url + "PoliticaSeguridad/AddPoliticaSeguridad";
     //this.http.post<ResponseMessage>(
-    return this.http.post<ResponseMessage>(dir,postdata,this.httpOptions);
+    return this.http.post<ResponseMessage>(dir,postdata);
   }
 
 
   GetSeguridad(idUsuario: string): Observable<ResponseMessage>{
     let dir = this.url + "PoliticaSeguridad/GetPoliticaSeguridad/" + idUsuario;
-    return this.http.get<ResponseMessage>(dir,this.httpOptions);
+    return this.http.get<ResponseMessage>(dir);
   }
 
 }
