@@ -190,7 +190,8 @@ export class RequestComponent implements OnInit
                                     this.serviceProtectData.GetSeguridad(guidDOC).subscribe((data)=>
                                     {
                                         if (data.data !== null){
-                                            this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
+                                            this.router.navigate(['/Registro', this.MigrantsStatementsFile]);
+                                            //this.router.navigate(['/Registro'], {queryParams:{data:this.MigrantsStatementsFile}});
                                             //2.1 Si responde que ya existe, entonces salta al router.navigate /Registro
                                         }else{
                                           this.openSeguridad(this.errorMessage);

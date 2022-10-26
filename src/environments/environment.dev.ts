@@ -4,7 +4,7 @@ export const environment = {
 
   baseUrl:"https://saludmigrantes-api.azurewebsites.net/",
 
-  baseUrlSeguridad:"https://apm-aeu-sds-dev-shared.azure-api.net/tramites-shared/api/v1/",
+  baseUrlSeguridad:"https://saludmigrantes-api.azurewebsites.net/api/v1/",
 
 
   recaptcha: {
